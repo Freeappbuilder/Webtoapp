@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Free App Maker - Ultimate Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #07090e;
+            --bg-card: #0f172a;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --neon-cyan: #06b6d4;
+            --neon-purple: #c084fc;
+            --neon-pink: #f472b6;
+            --neon-green: #34d399;
+            --neon-gold: #fbbf24;
+            --neon-blue: #3b82f6;
+            --neon-red: #ef4444;
+        }
+
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background: var(--bg-primary); 
+            color: #f8fafc; 
+            padding: 0; 
+            margin: 0; 
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .main-wrapper { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 30px; 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            padding: 30px 20px;
+            justify-content: center; 
+            align-items: flex-start;
+            box-sizing: border-box;
+        }
+
+        .container { 
+            flex: 2; 
+            min-width: 340px; 
+            background: transparent; 
+            padding: 0; 
+            box-sizing: border-box;
+        }
+
+        .brand-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 20px;
+        }
+
+        .brand-logo {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 16px rgba(6, 182, 212, 0.9));
+        }
+
+        .brand-logo svg {
+            width: 52px;
+            height: 52px;
+        }
+
+        .brand-title-area {
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2 { 
+            margin: 0; 
+            font-size: 28px; 
+            font-weight: 800; 
+            letter-spacing: -0.5px;
+            white-space: nowrap;
+            background: linear-gradient(135deg, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle { color: #94a3b8; font-size: 13px; margin-top: 2px; font-weight: 500; white-space: nowrap; }
+        
+        .sec-platform { color: var(--neon-cyan); }
+        .sec-splash   { color: var(--neon-pink); }
+        .sec-design   { color: var(--neon-purple); }
+        .sec-money    { color: var(--neon-green); }
+        .sec-security { color: var(--neon-gold); }
+
+        .section-title { 
+            font-size: 12px; 
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 30px; 
+            margin-bottom: 12px; 
+        }
+
+        label { display: block; margin-top: 12px; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; }
+        
+        input[type="text"], input[type="url"], input[type="email"], textarea { 
+            width: 100%; 
+            padding: 13px 16px; 
+            margin-top: 6px; 
+            border-radius: 12px; 
+            border: 1px solid var(--border-color); 
+            background: var(--bg-card); 
+            color: #fff; 
+            box-sizing: border-box; 
+            font-size: 14px; 
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, textarea:focus { 
+            border-color: var(--neon-cyan); 
+            outline: none; 
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.2); 
+        }
+
+        input[type="color"] {
+            width: 100%;
+            height: 46px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            cursor: pointer;
+            padding: 4px;
+            margin-top: 6px;
+        }
+
+        input[type="file"] {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 6px;
+            padding: 10px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px dashed rgba(255,255,255,0.2);
+            width: 100%;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .radio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .radio-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+            font-weight: 600;
+            color: #94a3b8;
+            user-select: none;
+            position: relative;
+            z-index: 5;
+        }
+
+        .radio-card:hover {
+            border-color: rgba(6, 182, 212, 0.4);
+            color: #cbd5e1;
+        }
+
+        .radio-card.active {
+            background: rgba(6, 182, 212, 0.15);
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.25);
+        }
+
+        .radio-card.active-red {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: var(--neon-red);
+            color: var(--neon-red);
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.25);
+        }
+
+        .icon-search-box {
+            background: var(--bg-card);
+            padding: 16px;
+            border-radius: 14px;
+            margin-top: 10px;
+            border: 1px solid var(--border-color);
+        }
+        .icon-results-grid {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+        .icon-result-item {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            flex-shrink: 0;
+            background: #1e293b;
+            padding: 4px;
+            box-sizing: border-box;
+        }
+        .icon-result-item:hover {
+            border-color: var(--neon-cyan);
+            transform: scale(1.08);
+        }
+
+        .row { display: flex; gap: 12px; }
+        .row > div { flex: 1; }
+        
+        .sub-box { 
+            background: var(--bg-card); 
+            padding: 16px; 
+            border-radius: 14px; 
+            margin-top: 10px; 
+            border: 1px solid var(--border-color); 
+        }
+
+        .social-input-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            align-items: center;
+        }
+
+        .add-more-btn {
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--neon-cyan);
+            border: 1px dashed var(--neon-cyan);
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .add-more-btn:hover {
+            background: rgba(6, 182, 212, 0.25);
+        }
+
+        .generate-btn { 
+            width: 100%; 
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-blue)); 
+            color: white; 
+            padding: 16px; 
+            border: none; 
+            border-radius: 14px; 
+            margin-top: 30px; 
+            font-size: 16px; 
+            font-weight: 700; 
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer; 
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .generate-btn:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(6, 182, 212, 0.6);
+        }
+
+        #status { 
+            margin-top: 15px; 
+            text-align: center; 
+            font-size: 13px; 
+            color: #facc15; 
+            font-weight: 500; 
+            background: var(--bg-card);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            display: none;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            margin-top: 12px;
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4);
+            transition: all 0.3s ease;
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+        }
+
+        .preview-container { 
+            width: 320px; 
+            background: var(--bg-card); 
+            padding: 25px; 
+            border-radius: 24px; 
+            border: 1px solid var(--border-color);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.7); 
+            text-align: center; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            position: sticky;
+            top: 20px;
+            flex-shrink: 0;
+            box-sizing: border-box;
+        }
+
+        .phone-frame { 
+            width: 260px; 
+            height: 520px; 
+            background: #000; 
+            border: 8px solid #1e293b; 
+            border-radius: 35px; 
+            position: relative; 
+            overflow: hidden; 
+            display: flex; 
+            flex-direction: column; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8), inset 0 0 10px rgba(255,255,255,0.1); 
+        }
+        
+        .phone-status-bar { height: 22px; background: rgba(0,0,0,0.6); display: flex; justify-content: space-between; align-items: center; padding: 0 12px; font-size: 9px; color: #fff; z-index: 55; position: absolute; width: 100%; top: 0; box-sizing: border-box; }
+        .punch-hole { width: 10px; height: 10px; background: #000; border-radius: 50%; position: absolute; top: 6px; left: 50%; transform: translateX(-50%); z-index: 60; }
+
+        .phone-screen { flex: 1; background: #0b0f19; position: relative; overflow: hidden; display: flex; flex-direction: column; margin-top: 22px; }
+        
+        #phoneHomeScreen { position: absolute; width: 100%; height: 100%; background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=300&auto=format&fit=crop') center/cover no-repeat; display: flex; flex-direction: column; justify-content: space-between; z-index: 28; padding: 20px 15px; box-sizing: border-box; }
+        
+        .home-grid { display: flex; flex-wrap: wrap; gap: 15px; align-content: flex-start; margin-top: 20px; }
+        .app-icon-preview { width: 50px; height: 50px; background: #ffffff; border-radius: 14px; display: flex; justify-content: center; align-items: center; font-size: 22px; box-shadow: 0 4px 10px rgba(0,0,0,0.4); cursor: pointer; transition: transform 0.2s; overflow: hidden; border: 1px solid rgba(255,255,255,0.4); }
+        .app-icon-preview img { width: 100%; height: 100%; object-fit: cover; display: none; }
+        .app-label-preview { font-size: 10px; color: #fff; font-weight: bold; text-align: center; text-shadow: 0 1px 3px rgba(0,0,0,0.9); margin-top: 3px; max-width: 55px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        
+        .app-item { display: flex; flex-direction: column; align-items: center; width: 55px; }
+
+        .home-dock { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border-radius: 20px; padding: 8px; display: flex; justify-content: space-around; align-items: center; margin-bottom: 5px; }
+        .dock-icon { width: 36px; height: 36px; background: rgba(255,255,255,0.3); border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 14px; }
+
+        #phoneSplashOverlay { position: absolute; width: 100%; height: 100%; background: #000; display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 50; color: #fff; text-align: center; }
+
+        /* Full Screen Side Slider Menu */
+        #phoneDrawer { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            background: #0f172a; 
+            z-index: 70; 
+            left: -100%; 
+            top: 0; 
+            transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1); 
+            display: flex; 
+            flex-direction: column; 
+            padding: 25px 20px; 
+            box-sizing: border-box; 
+            box-shadow: 5px 0 25px rgba(0,0,0,0.8); 
+        }
+        .drawer-header { font-size: 14px; font-weight: bold; color: var(--neon-cyan); border-bottom: 1px solid #334155; padding-bottom: 10px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .drawer-item { font-size: 13px; color: #cbd5e1; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
+        .drawer-item:hover { color: #fff; }
+
+        .phone-toolbar { height: 32px; background: #0b0f19; color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 10px; font-size: 11px; font-weight: bold; flex-shrink: 0; z-index: 35; display: none; }
+        .hamburger-btn { cursor: pointer; font-size: 14px; color: var(--neon-cyan); }
+        
+        .iframe-container { flex: 1; position: relative; overflow: hidden; background: #0b0f19; }
+        .iframe-container iframe { position: absolute; top: 0; left: 0; width: 380px; height: 145%; transform: scale(0.68); transform-origin: 0 0; border: none; background: #fff; }
+
+        .phone-system-nav { height: 26px; background: #0b0f19; display: flex; justify-content: space-around; align-items: center; flex-shrink: 0; border-top: 1px solid #1e293b; z-index: 35; }
+        .nav-btn { font-size: 11px; color: #94a3b8; font-weight: bold; cursor: pointer; padding: 2px 8px; }
+        .nav-btn:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div class="container">
+        <div class="brand-header">
+            <div class="brand-logo">
+                <svg viewBox="0 0 512 512">
+                    <defs>
+                        <linearGradient id="ironMetallicNeon" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#38bdf8"/>
+                            <stop offset="50%" stop-color="#0ea5e9"/>
+                            <stop offset="100%" stop-color="#0284c7"/>
+                        </linearGradient>
+                        <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="5" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                    </defs>
+                    <path fill="url(#ironMetallicNeon)" filter="url(#neonGlow)" d="M256,32C150,32,64,118,64,224c0,50,20,96,52,132v92c0,17.7,14.3,32,32,32h216c17.7,0,32-14.3,32-32v-92c32-36,52-82,52-132C448,118,362,32,256,32z M256,96c44.2,0,80,35.8,80,80c0,25.4-12.2,48-31.2,62.4L256,260l-48.8-21.6C188.2,224,176,201.4,176,176C176,131.8,211.8,96,256,96z M160,384v-16c28.6,12.8,60.2,20,96,20c35.8,0,67.4-7.2,96-20v16H160z"/>
+                </svg>
+            </div>
+            <div class="brand-title-area">
+                <h2>Free App Maker</h2>
+                <div class="subtitle">Build Pro Android & iOS Apps Instantly</div>
+            </div>
+        </div>
+        
+        <form id="apkForm">
+            
+            <div class="section-title sec-platform">📌 1. Target Platform & Source Type</div>
+            
+            <label>Select Target Platform:</label>
+            <div class="radio-grid">
+                <div class="radio-card active" id="platformAndroid" onclick="setPlatform('android')">🤖 Android (APK)</div>
+                <div class="radio-card" id="platformIos" onclick="setPlatform('ios')">🍏 iPhone (iOS)</div>
+            </div>
+            <input type="hidden" id="targetPlatform" value="android">
+
+            <label>App Source Type:</label>
+            <div class="radio-grid">
+                <div class="radio-card active" id="sourceUrlBtn" onclick="setSourceType('url')">🔗 Website URL</div>
+                <div class="radio-card" id="sourceCodeBtn" onclick="setSourceType('code')">💻 Custom HTML / JS Code</div>
+            </div>
+            <input type="hidden" id="appSourceType" value="url">
+
+            <div id="urlInputBoxContainer">
+                <label>Website URL / Link:</label>
+                <input type="url" id="appUrlInput" placeholder="https://example.com" value="https://example.com" oninput="updateLiveUrl()" required>
+            </div>
+
+            <div id="codeInputBoxContainer" style="display: none;">
+                <label>Paste HTML / CSS / JS Code:</label>
+                <textarea id="appCodeInput" rows="6" placeholder="&lt;h1&gt;Hello World&lt;/h1&gt;&lt;script&gt;console.log('App running');&lt;/script&gt;" oninput="updateCodePreview()"></textarea>
+            </div>
+
+            <label>App Name:</label>
+            <input type="text" id="appName" placeholder="e.g. My Awesome App" value="" oninput="updatePreview()" required>
+
+            <label>Package Name (Bundle ID):</label>
+            <input type="text" id="packageName" value="com.free.appmaker" required>
+
+            <label>App Icon (Upload file, pick preset, or choose vector logo):</label>
+            <div class="row">
+                <div>
+                    <input type="file" id="appIconFile" accept="image/*" onchange="previewAppIcon(event)">
+                </div>
+                <div>
+                    <div class="radio-grid" style="margin-top:0;">
+                        <div class="radio-card" onclick="selectPresetEmoji('🚀')">🚀</div>
+                        <div class="radio-card" onclick="selectPresetEmoji('📚')">📚</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="icon-search-box">
+                <label style="margin-top:0; color: var(--neon-cyan);">✨ Vector 3D Cartoon Logo Suggestions:</label>
+                <div id="iconSearchResults" class="icon-results-grid"></div>
+                <button type="button" onclick="loadMoreVectorLogos()" style="background: rgba(6,182,212,0.15); color: var(--neon-cyan); border: 1px solid var(--neon-cyan); border-radius: 8px; padding: 8px; width: 100%; margin-top: 10px; font-size: 11px; font-weight: 700; cursor: pointer;">Load More / Next Logos ➔</button>
+            </div>
+
+            <div class="section-title sec-splash">🎬 2. Splash Screen (Max 10s)</div>
+            <label>Splash Screen Type:</label>
+            <div class="radio-grid">
+                <div class="radio-card active" id="splashNone" onclick="setSplash('none')">None</div>
+                <div class="radio-card" id="splashVideo" onclick="setSplash('video')">Video (10s)</div>
+            </div>
+            <div class="radio-grid" style="margin-top: 10px;">
+                <div class="radio-card" id="splashImage" onclick="setSplash('image')">Image / GIF</div>
+                <div></div>
+            </div>
+            <input type="hidden" id="splashTypeToggle" value="none">
+
+            <div id="fileInputBox" class="sub-box" style="display: none;">
+                <label id="fileLabelText">Upload Media File:</label>
+                <input type="file" id="splashMediaFile" accept="video/mp4,image/*" onchange="previewSplashFile(event)">
+            </div>
+
+            <div id="urlInputBox" class="sub-box" style="display: none;">
+                <label>Direct Media URL:</label>
+                <input type="url" id="splashMediaUrl" placeholder="https://example.com/splash.mp4" oninput="previewSplashUrl()">
+            </div>
+
+            <div id="audioOptionBox" class="sub-box" style="display: none; margin-top: 10px;">
+                <label>Splash Video Audio:</label>
+                <div class="radio-grid">
+                    <div class="radio-card" id="audioUnmute" onclick="setAudio('unmute')">🔊 Sound On</div>
+                    <div class="radio-card active" id="audioMute" onclick="setAudio('mute')">🔇 Muted</div>
+                </div>
+                <input type="hidden" id="splashAudioToggle" value="mute">
+            </div>
+
+            <div class="section-title sec-design">🎨 3. UI & Design & Menu</div>
+            <div class="row">
+                <div>
+                    <label>Theme Color:</label>
+                    <input type="color" id="themeColor" value="#0b0f19" oninput="updatePreview()">
+                </div>
+                <div>
+                    <label>Native Toolbar:</label>
+                    <div class="radio-grid" style="margin-top: 6px;">
+                        <div class="radio-card active" id="tbShow" onclick="setToolbar('true')">Show</div>
+                        <div class="radio-card" id="tbHide" onclick="setToolbar('false')">Full</div>
+                    </div>
+                    <input type="hidden" id="toolbarToggle" value="true">
+                </div>
+            </div>
+
+            <label style="margin-top:15px;">Side Slider Menu (Navigation Drawer):</label>
+            <div class="radio-grid">
+                <div class="radio-card active" id="drawerOn" onclick="setDrawer('true')">Enable Menu</div>
+                <div class="radio-card" id="drawerOff" onclick="setDrawer('false')">Disable</div>
+            </div>
+            <input type="hidden" id="drawerToggle" value="true">
+
+            <div id="drawerInputsBox" class="sub-box">
+                <label>About App Text / Link:</label>
+                <input type="text" id="aboutAppText" placeholder="About Us URL or text">
+                
+                <label style="color: var(--neon-cyan);">Developer Support Email (For bug reports):</label>
+                <input type="email" id="developerEmail" placeholder="e.g. developer@gmail.com" value="">
+
+                <label>Social Media Handles (Optional):</label>
+                <div id="socialContainer">
+                    <div class="social-input-row">
+                        <select style="width: 130px; background:var(--bg-card); color:#fff; border:1px solid var(--border-color); border-radius:8px; padding:8px;">
+                            <option>WhatsApp</option>
+                            <option>Instagram</option>
+                            <option>Telegram</option>
+                            <option>Facebook</option>
+                        </select>
+                        <input type="url" placeholder="https://..." style="margin-top:0; flex:1;">
+                    </div>
+                </div>
+                <button type="button" class="add-more-btn" onclick="addSocialField()">+ Add More Social Handle</button>
+            </div>
+
+            <div class="section-title sec-money">💰 4. Monetization (AdMob Ads)</div>
+            <label>Google AdMob Integration:</label>
+            <div class="radio-grid">
+                <div class="radio-card active" id="admobOn" onclick="setAdmob('true')">Enable Ads</div>
+                <div class="radio-card" id="admobOff" onclick="setAdmob('false')">Disable</div>
+            </div>
+            <input type="hidden" id="admobToggle" value="true">
+
+            <div id="admobInputBox" class="sub-box" style="display: block;">
+                <label>AdMob Banner Ad Unit ID:</label>
+                <input type="text" id="admobBannerId" placeholder="ca-app-pub-xxxxxxxxoxxx/yyyyyyyy">
+            </div>
+
+            <div class="section-title sec-security">🔒 5. Security, Cache & Permissions</div>
+            <div class="row">
+                <div>
+                    <label>Anti-Screenshot:</label>
+                    <div class="radio-grid" style="margin-top:6px;">
+                        <div class="radio-card active" id="secOff" onclick="setSecurity('false')">Allow</div>
+                        <div class="radio-card" id="secOn" onclick="setSecurity('true')">Block</div>
+                    </div>
+                    <input type="hidden" id="antiScreenshot" value="false">
+                </div>
+                <div>
+                    <label>File Upload/Download:</label>
+                    <div class="radio-grid" style="margin-top:6px;">
+                        <div class="radio-card active" id="fileOn" onclick="setFileSup('true')">Enable</div>
+                        <div class="radio-card" id="fileOff" onclick="setFileSup('false')">Disable</div>
+                    </div>
+                    <input type="hidden" id="fileUploadDownload" value="true">
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 12px;">
+                <div>
+                    <label>Storage & Cache:</label>
+                    <div class="radio-grid" style="margin-top:6px;">
+                        <div class="radio-card active" id="cacheOn" onclick="setCache('true')">Enable</div>
+                        <div class="radio-card" id="cacheOff" onclick="setCache('false')">Disable</div>
+                    </div>
+                    <input type="hidden" id="storagePermission" value="true">
+                </div>
+                <div>
+                    <label>Push Notifications:</label>
+                    <div class="radio-grid" style="margin-top:6px;">
+                        <div class="radio-card" id="notifOn" onclick="setNotif('true')">Enable</div>
+                        <div class="radio-card active" id="notifOff" onclick="setNotif('false')">Disable</div>
+                    </div>
+                    <input type="hidden" id="pushNotifications" value="false">
+                </div>
+            </div>
+
+            <button type="submit" class="generate-btn">🚀 Build App Free Now</button>
+        </form>
+        <div id="status"></div>
+    </div>
+
+    <!-- Live Functional Preview Section -->
+    <div class="preview-container">
+        <h3 style="color: var(--neon-cyan); margin-top: 0; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">📱 Live App Simulator</h3>
+        <div class="phone-frame">
+            <div class="phone-status-bar">
+                <span>10:14</span>
+                <div class="punch-hole"></div>
+                <span>5G 🔋</span>
+            </div>
+            
+            <div class="phone-screen">
+                
+                <!-- Full Screen Side Slider Menu -->
+                <div id="phoneDrawer">
+                    <div class="drawer-header">
+                        <span>📌 App Menu</span>
+                        <span style="cursor:pointer; font-size:16px;" onclick="toggleDrawerPreview()">✕</span>
+                    </div>
+                    <div class="drawer-item" onclick="toggleDrawerPreview()">🏠 Home</div>
+                    <div class="drawer-item" onclick="alert('Opening About App...')">ℹ️ About App</div>
+                    <div class="drawer-item" onclick="alert('Opening Social Media...')">📢 Social Links</div>
+                    <div class="drawer-item" id="drawerReportItem" style="color: #38bdf8; font-weight: bold;" onclick="openReportProblemModal()">⚠️ Report a Problem</div>
+                    <div class="drawer-item" onclick="alert('Privacy Policy')">🔒 Privacy Policy</div>
+                    <div class="drawer-item" style="color: #ef4444; margin-top: auto;" onclick="toggleDrawerPreview()">❌ Close Menu</div>
+                </div>
+
+                <div id="phoneHomeScreen">
+                    <div class="home-grid">
+                        <div class="app-item" onclick="launchAppInPreview()">
+                            <div class="app-icon-preview">
+                                <span id="iconFallbackEmoji">🚀</span>
+                                <img id="customIconImg" src="" alt="App Icon">
+                            </div>
+                            <div id="homeAppLabel" class="app-label-preview">My App</div>
+                        </div>
+                        <div class="app-item"><div class="dock-icon" style="background:#ef4444; color:#fff;">📞</div><div class="app-label-preview">Phone</div></div>
+                        <div class="app-item"><div class="dock-icon" style="background:#10b981; color:#fff;">💬</div><div class="app-label-preview">Messages</div></div>
+                        <div class="app-item"><div class="dock-icon" style="background:#f59e0b; color:#fff;">🌐</div><div class="app-label-preview">Browser</div></div>
+                    </div>
+
+                    <div class="home-dock">
+                        <div class="dock-icon">📞</div>
+                        <div class="dock-icon">💬</div>
+                        <div class="dock-icon">🌐</div>
+                        <div class="dock-icon">⚙️</div>
+                    </div>
+                </div>
+
+                <div id="phoneSplashOverlay">
+                    <video id="splashVideoPlayer" playsinline style="display: none; width: 100%; height: 100%; object-fit: cover;"></video>
+                    <img id="splashImagePlayer" src="" alt="Splash Media" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                    <div id="splashFallbackText" style="font-size: 12px; font-weight: bold; padding: 20px;">🎬 Loading Splash...</div>
+                </div>
+
+                <div id="previewToolbar" class="phone-toolbar">
+                    <span class="hamburger-btn" onclick="toggleDrawerPreview()">☰</span>
+                    <span id="previewTitle" style="flex: 1; text-align: center;">My App</span>
+                    <span style="width: 14px;"></span>
+                </div>
+                
+                <div class="iframe-container">
+                    <iframe id="liveWebsiteFrame" src="https://example.com" title="Website Preview"></iframe>
+                </div>
+            </div>
+
+            <div class="phone-system-nav">
+                <span class="nav-btn" onclick="goHomeInPreview()">◁</span>
+                <span class="nav-btn" onclick="goHomeInPreview()">◯</span>
+                <span class="nav-btn" onclick="launchAppInPreview()">▢</span>
+            </div>
+        </div>
+        <small style="color: #94a3b8; margin-top: 12px; font-size: 11px;">Tap app icon to test launch & splash</small>
+    </div>
+</div>
+
+<!-- Report a Problem Modal Simulation -->
+<div id="reportModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:100; justify-content:center; align-items:center;">
+    <div style="background:#0f172a; padding:25px; border-radius:16px; width:300px; border:1px solid rgba(255,255,255,0.1); text-align:left;">
+        <h3 style="color:#38bdf8; margin-top:0; font-size:16px;">⚠️ Report a Problem</h3>
+        <label style="font-size:10px;">Describe your issue:</label>
+        <textarea id="problemDesc" rows="3" placeholder="Write problem here..." style="width:100%; background:#07090e; color:#fff; border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:8px; font-size:12px; margin-top:5px; box-sizing:border-box;"></textarea>
+        <label style="font-size:10px; margin-top:10px;">Attach Screenshot / Video:</label>
+        <input type="file" id="problemAttachment" accept="image/*,video/*" style="margin-top:5px; font-size:10px;">
+        <button type="button" onclick="submitReport()" style="width:100%; background:#06b6d4; color:#000; border:none; border-radius:8px; padding:10px; font-weight:bold; margin-top:15px; cursor:pointer;">Send Report</button>
+        <button type="button" onclick="closeReportModal()" style="width:100%; background:transparent; color:#94a3b8; border:none; padding:8px; margin-top:5px; cursor:pointer; font-size:11px;">Cancel</button>
+    </div>
+</div>
+
+<script>
+    let uploadedMediaObjectUrl = "";
+    let vectorLogoOffset = 0;
+
+    const vectorLogoLibrary = [
+        "https://cdn-icons-png.flaticon.com/512/3076/3076129.png",
+        "https://cdn-icons-png.flaticon.com/512/3177/3177440.png",
+        "https://cdn-icons-png.flaticon.com/512/3242/3242257.png",
+        "https://cdn-icons-png.flaticon.com/512/3076/3076137.png",
+        "https://cdn-icons-png.flaticon.com/512/2921/2921222.png",
+        "https://cdn-icons-png.flaticon.com/512/3177/3177488.png",
+        "https://cdn-icons-png.flaticon.com/512/3076/3076156.png",
+        "https://cdn-icons-png.flaticon.com/512/3242/3242303.png",
+        "https://cdn-icons-png.flaticon.com/512/2921/2921262.png",
+        "https://cdn-icons-png.flaticon.com/512/3177/3177527.png",
+        "https://cdn-icons-png.flaticon.com/512/3076/3076115.png",
+        "https://cdn-icons-png.flaticon.com/512/3242/3242279.png",
+        "https://cdn-icons-png.flaticon.com/512/4149/4149670.png",
+        "https://cdn-icons-png.flaticon.com/512/4149/4149678.png",
+        "https://cdn-icons-png.flaticon.com/512/4149/4149688.png",
+        "https://cdn-icons-png.flaticon.com/512/4149/4149712.png",
+        "https://cdn-icons-png.flaticon.com/512/2991/2991148.png",
+        "https://cdn-icons-png.flaticon.com/512/2991/2991195.png",
+        "https://cdn-icons-png.flaticon.com/512/3076/3076145.png",
+        "https://cdn-icons-png.flaticon.com/512/3177/3177460.png",
+        "https://cdn-icons-png.flaticon.com/512/3242/3242291.png",
+        "https://cdn-icons-png.flaticon.com/512/2921/2921245.png",
+        "https://cdn-icons-png.flaticon.com/512/4149/4149750.png",
+        "https://cdn-icons-png.flaticon.com/512/2991/2991108.png"
+    ];
+
+    function loadVectorLogos() {
+        const resultsContainer = document.getElementById('iconSearchResults');
+        resultsContainer.innerHTML = "";
+
+        for(let i = 0; i < 5; i++) {
+            let logoUrl = vectorLogoLibrary[vectorLogoOffset % vectorLogoLibrary.length];
+            vectorLogoOffset++;
+
+            const img = document.createElement('img');
+            img.src = logoUrl;
+            img.className = 'icon-result-item';
+            img.title = "Click to select vector logo";
+            img.onclick = function() {
+                const customImg = document.getElementById('customIconImg');
+                customImg.src = logoUrl;
+                customImg.style.display = 'block';
+                document.getElementById('iconFallbackEmoji').style.display = 'none';
+            };
+            resultsContainer.appendChild(img);
+        }
+    }
+
+    function loadMoreVectorLogos() {
+        loadVectorLogos();
+    }
+
+    window.onload = function() {
+        loadVectorLogos();
+    };
+
+    function openReportProblemModal() {
+        document.getElementById('reportModal').style.display = 'flex';
+        toggleDrawerPreview();
+    }
+
+    function closeReportModal() {
+        document.getElementById('reportModal').style.display = 'none';
+    }
+
+    function submitReport() {
+        const desc = document.getElementById('problemDesc').value;
+        const devEmail = document.getElementById('developerEmail').value || "support@appmaker.internal";
+        if(!desc) {
+            alert('Kripya apni problem describe karein.');
+            return;
+        }
+        window.location.href = `mailto:${devEmail}?subject=App Bug Report from User&body=${encodeURIComponent(desc)}`;
+        closeReportModal();
+        alert('Aapka report safalpurvak bhej diya gaya hai!');
+    }
+
+    function setPlatform(val) {
+        document.getElementById('targetPlatform').value = val;
+        document.getElementById('platformAndroid').className = val === 'android' ? 'radio-card active' : 'radio-card';
+        document.getElementById('platformIos').className = val === 'ios' ? 'radio-card active' : 'radio-card';
+    }
+
+    function setSourceType(val) {
+        document.getElementById('appSourceType').value = val;
+        document.getElementById('sourceUrlBtn').className = val === 'url' ? 'radio-card active' : 'radio-card';
+        document.getElementById('sourceCodeBtn').className = val === 'code' ? 'radio-card active' : 'radio-card';
+        
+        if(val === 'url') {
+            document.getElementById('urlInputBoxContainer').style.display = 'block';
+            document.getElementById('codeInputBoxContainer').style.display = 'none';
+        } else {
+            document.getElementById('urlInputBoxContainer').style.display = 'none';
+            document.getElementById('codeInputBoxContainer').style.display = 'block';
+        }
+    }
+
+    function setToolbar(val) {
+        document.getElementById('toolbarToggle').value = val;
+        document.getElementById('tbShow').className = val === 'true' ? 'radio-card active' : 'radio-card';
+        document.getElementById('tbHide').className = val === 'false' ? 'radio-card active' : 'radio-card';
+        updatePreview();
+    }
+
+    function setDrawer(val) {
+        document.getElementById('drawerToggle').value = val;
+        document.getElementById('drawerOn').className = val === 'true' ? 'radio-card active' : 'radio-card';
+        document.getElementById('drawerOff').className = val === 'false' ? 'radio-card active active-red' : 'radio-card';
+        
+        const drawerInputs = document.getElementById('drawerInputsBox');
+        const reportItem = document.getElementById('drawerReportItem');
+        
+        if(val === 'true') {
+            drawerInputs.style.display = 'block';
+            reportItem.style.display = 'block';
+        } else {
+            drawerInputs.style.display = 'none';
+            reportItem.style.display = 'none';
+        }
+    }
+
+    function setAdmob(val) {
+        document.getElementById('admobToggle').value = val;
+        document.getElementById('admobOn').className = val === 'true' ? 'radio-card active' : 'radio-card';
+        document.getElementById('admobOff').className = val === 'false' ? 'radio-card active active-red' : 'radio-card';
+        document.getElementById('admobInputBox').style.display = (val === 'true') ? 'block' : 'none';
+    }
+
+    function setSecurity(val) {
+        document.getElementById('antiScreenshot').value = val;
+        document.getElementById('secOff').className = val === 'false' ? 'radio-card active' : 'radio-card';
+        document.getElementById('secOn').className = val === 'true' ? 'radio-card active active-red' : 'radio-card';
+    }
+
+    function setFileSup(val) {
+        document.getElementById('fileUploadDownload').value = val;
+        document.getElementById('fileOn').className = val === 'true' ? 'radio-card active' : 'radio-card';
+        document.getElementById('fileOff').className = val === 'false' ? 'radio-card active active-red' : 'radio-card';
+    }
+
+    function setCache(val) {
+        document.getElementById('storagePermission').value = val;
+        document.getElementById('cacheOn').className = val === 'true' ? 'radio-card active' : 'radio-card';
+        document.getElementById('cacheOff').className = val === 'false' ? 'radio-card active active-red' : 'radio-card';
+    }
+
+    function setNotif(val) {
+        document.getElementById('pushNotifications').value = val;
+        document.getElementById('notifOn').className = val === 'true' ? 'radio-card active' : 'radio-card';
+        document.getElementById('notifOff').className = val === 'false' ? 'radio-card active active-red' : 'radio-card';
+    }
+
+    function setSplash(val) {
+        document.getElementById('splashTypeToggle').value = val;
+        document.getElementById('splashNone').className = val === 'none' ? 'radio-card active active-red' : 'radio-card';
+        document.getElementById('splashVideo').className = val === 'video' ? 'radio-card active' : 'radio-card';
+        document.getElementById('splashImage').className = val === 'image' ? 'radio-card active' : 'radio-card';
+
+        const fileInputBox = document.getElementById('fileInputBox');
+        const urlInputBox = document.getElementById('urlInputBox');
+        const audioBox = document.getElementById('audioOptionBox');
+        const fileLabelText = document.getElementById('fileLabelText');
+        const splashFile = document.getElementById('splashMediaFile');
+
+        if (val === 'none') {
+            fileInputBox.style.display = 'none';
+            urlInputBox.style.display = 'none';
+            audioBox.style.display = 'none';
+        } else if (val === 'video') {
+            fileInputBox.style.display = 'block';
+            urlInputBox.style.display = 'block';
+            audioBox.style.display = 'block';
+            fileLabelText.innerText = "Upload MP4 Video (Max 10s):";
+            splashFile.accept = "video/mp4";
+        } else if (val === 'image') {
+            fileInputBox.style.display = 'block';
+            urlInputBox.style.display = 'block';
+            audioBox.style.display = 'none';
+            fileLabelText.innerText = "Upload Image or GIF:";
+            splashFile.accept = "image/*";
+        }
+        updatePreview();
+    }
+
+    function setAudio(val) {
+        document.getElementById('splashAudioToggle').value = val;
+        document.getElementById('audioUnmute').className = val === 'unmute' ? 'radio-card active' : 'radio-card';
+        document.getElementById('audioMute').className = val === 'mute' ? 'radio-card active active-red' : 'radio-card';
+    }
+
+    function toggleDrawerPreview() {
+        const drawer = document.getElementById('phoneDrawer');
+        drawer.style.left = (drawer.style.left === '0px') ? '-100%' : '0px';
+    }
+
+    function updatePreview() {
+        const appName = document.getElementById('appName').value || "My App";
+        const themeColor = document.getElementById('themeColor').value;
+        const showToolbar = document.getElementById('toolbarToggle').value;
+        const homeScreen = document.getElementById('phoneHomeScreen');
+
+        document.getElementById('previewTitle').innerText = appName;
+        document.getElementById('homeAppLabel').innerText = appName;
+        
+        const toolbar = document.getElementById('previewToolbar');
+        if (homeScreen.style.display === 'none' && showToolbar === 'true') {
+            toolbar.style.display = 'flex';
+        } else {
+            toolbar.style.display = 'none';
+        }
+        toolbar.style.backgroundColor = themeColor;
+    }
+
+    function updateLiveUrl() {
+        let url = document.getElementById('appUrlInput').value;
+        if (url) {
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+            }
+            document.getElementById('liveWebsiteFrame').src = url;
+        }
+    }
+
+    function updateCodePreview() {
+        const code = document.getElementById('appCodeInput').value;
+        const iframe = document.getElementById('liveWebsiteFrame');
+        const blob = new Blob([code], { type: 'text/html' });
+        iframe.src = URL.createObjectURL(blob);
+    }
+
+    function previewAppIcon(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.getElementById('customIconImg');
+                img.src = e.target.result;
+                img.style.display = 'block';
+                document.getElementById('iconFallbackEmoji').style.display = 'none';
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function selectPresetEmoji(emoji) {
+        document.getElementById('customIconImg').style.display = 'none';
+        const fallback = document.getElementById('iconFallbackEmoji');
+        fallback.innerText = emoji;
+        fallback.style.display = 'block';
+    }
+
+    function previewSplashFile(event) {
+        const file = event.target.files[0];
+        if (file) {
+            uploadedMediaObjectUrl = URL.createObjectURL(file);
+        }
+    }
+
+    function previewSplashUrl() {
+        uploadedMediaObjectUrl = document.getElementById('splashMediaUrl').value;
+    }
+
+    function launchAppInPreview() {
+        const splashType = document.getElementById('splashTypeToggle').value;
+        const audioState = document.getElementById('splashAudioToggle').value;
+        const homeScreen = document.getElementById('phoneHomeScreen');
+        const splashOverlay = document.getElementById('phoneSplashOverlay');
+        const videoPlayer = document.getElementById('splashVideoPlayer');
+        const imagePlayer = document.getElementById('splashImagePlayer');
+        const fallbackText = document.getElementById('splashFallbackText');
+
+        homeScreen.style.display = 'none';
+        updatePreview();
+
+        if (splashType !== 'none' && uploadedMediaObjectUrl) {
+            splashOverlay.style.display = 'flex';
+            
+            if (splashType === 'video') {
+                imagePlayer.style.display = 'none';
+                fallbackText.style.display = 'none';
+                videoPlayer.style.display = 'block';
+                videoPlayer.src = uploadedMediaObjectUrl;
+                videoPlayer.muted = (audioState === 'mute');
+                videoPlayer.play().catch(e => console.log("Auto-play prevented"));
+
+                let maxTimer = setTimeout(() => {
+                    splashOverlay.style.display = 'none';
+                    videoPlayer.pause();
+                }, 10000);
+
+                videoPlayer.onended = function() {
+                    clearTimeout(maxTimer);
+                    splashOverlay.style.display = 'none';
+                };
+            } else if (splashType === 'image') {
+                videoPlayer.style.display = 'none';
+                fallbackText.style.display = 'none';
+                imagePlayer.style.display = 'block';
+                imagePlayer.src = uploadedMediaObjectUrl;
+
+                setTimeout(() => {
+                    splashOverlay.style.display = 'none';
+                }, 3000);
+            }
+        } else if (splashType !== 'none') {
+            splashOverlay.style.display = 'flex';
+            videoPlayer.style.display = 'none';
+            imagePlayer.style.display = 'none';
+            fallbackText.style.display = 'block';
+            fallbackText.innerText = "🎬 Splash Media (No file selected)";
+            setTimeout(() => {
+                splashOverlay.style.display = 'none';
+            }, 2000);
+        } else {
+            splashOverlay.style.display = 'none';
+        }
+    }
+
+    function goHomeInPreview() {
+        document.getElementById('phoneHomeScreen').style.display = 'flex';
+        document.getElementById('phoneSplashOverlay').style.display = 'none';
+        updatePreview();
+        const videoPlayer = document.getElementById('splashVideoPlayer');
+        videoPlayer.pause();
+    }
+
+    document.getElementById('apkForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const appName = document.getElementById('appName').value || "My App";
+        const platform = document.getElementById('targetPlatform').value.toUpperCase();
+        const statusBox = document.getElementById('status');
+        
+        statusBox.style.display = 'block';
+        statusBox.innerHTML = `⏳ Packaging ${platform} app via Free App Maker cloud...`;
+        
+        setTimeout(() => {
+            statusBox.innerHTML = `✅ Success! Your professional <b>${platform}</b> app for <b>${appName}</b> is ready.<br>` +
+                                  `<a href="#" class="download-btn" onclick="alert('Downloading App File...')">📥 Download ${platform} App File</a>`;
+        }, 2000);
+    });
+</script>
+
+</body>
+</html>
