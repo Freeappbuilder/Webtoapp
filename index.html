@@ -1024,19 +1024,45 @@
         videoPlayer.pause();
     }
 
-    document.getElementById('apkForm').addEventListener('submit', function(e) {
+    // Updated Form Submit Logic connected to Render Backend Server
+    document.getElementById('apkForm').addEventListener('submit', async function(e) {
         e.preventDefault();
+        
         const appName = document.getElementById('appName').value || "My App";
         const platform = document.getElementById('targetPlatform').value.toUpperCase();
+        const appUrl = document.getElementById('appUrlInput').value;
+        const packageName = document.getElementById('packageName').value;
         const statusBox = document.getElementById('status');
-        
+
         statusBox.style.display = 'block';
-        statusBox.innerHTML = `⏳ Packaging ${platform} app via Free App Maker cloud...`;
-        
-        setTimeout(() => {
-            statusBox.innerHTML = `✅ Success! Your professional <b>${platform}</b> app for <b>${appName}</b> is ready.<br>` +
-                                  `<a href="#" class="download-btn" onclick="alert('Downloading App File...')">📥 Download ${platform} App File</a>`;
-        }, 2000);
+        statusBox.innerHTML = `⏳ Connecting to Cloud Build Server...`;
+
+        try {
+            const response = await fetch('https://free-app-backend.onrender.com/api/build-app', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    appName: appName,
+                    platform: platform,
+                    appUrl: appUrl,
+                    packageName: packageName
+                })
+            });
+
+            const result = await response.json();
+
+            if(result.success) {
+                statusBox.innerHTML = `✅ Success! Your professional <b>${platform}</b> app for <b>${appName}</b> is ready.<br>` +
+                                      `<a href="#" class="download-btn" onclick="alert('Downloading APK file...')">📥 Download ${platform} App File</a>`;
+            } else {
+                statusBox.innerHTML = `❌ Build failed. Please try again.`;
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            statusBox.innerHTML = `❌ Server connection error!`;
+        }
     });
 </script>
 
