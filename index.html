@@ -1024,7 +1024,7 @@
         videoPlayer.pause();
     }
 
-    // Updated Form Submit Logic connected to Render Backend Server
+    // Updated Form Submit Logic with Direct Download Link Fix
     document.getElementById('apkForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         
@@ -1055,7 +1055,7 @@
 
             if(result.success) {
                 statusBox.innerHTML = `✅ Success! Your professional <b>${platform}</b> app for <b>${appName}</b> is ready.<br>` +
-                                      `<a href="#" class="download-btn" onclick="alert('Downloading APK file...')">📥 Download ${platform} App File</a>`;
+                                      `<a href="https://free-app-backend.onrender.com" target="_blank" class="download-btn">📥 Download ${platform} App File</a>`;
             } else {
                 statusBox.innerHTML = `❌ Build failed. Please try again.`;
             }
